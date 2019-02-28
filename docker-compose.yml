@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  front:
+    image: ippolab/athena-frontend
+    container_name: athena_front
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.backend=athena-frontend"
+      - "traefik.frontend.rule=Host:${ATHENA_FRONT_HOST}"
+      - "traefik.port=80"
+    networks:
+      - web
+  web:
+    image: ippolab/athena-backend
+    container_name: athena_back
+    restart: always
+    depends_on:
+      - db
+    env_file:
+      - .env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.backend=athena-backend"
+      - "traefik.frontend.rule=Host:${ATHENA_API_HOST}"
+      - "traefik.port=8000"
+    networks:
+      - web
+  db:
+    image: postgres:11.2-alpine
+    container_name: athena_pgdb
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - web
+
+networks:
+  web:
+    external: true
