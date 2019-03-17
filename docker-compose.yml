@@ -34,6 +34,7 @@ services:
   celery:
     image: ippolab/athena-backend
     container_name: athena_celery
+    restart: always
     depends_on:
       - db
       - redis
@@ -48,6 +49,7 @@ services:
   celery-beat:
     image: ippolab/athena-backend
     container_name: athena_celery_beat
+    restart: always
     depends_on:
       - db
       - redis
@@ -72,6 +74,7 @@ services:
   redis:
     image: redis:5.0.3-alpine
     container_name: athena_redis
+    restart: always
     labels:
       - "traefik.enable=true"
     networks:
@@ -80,6 +83,7 @@ services:
     image: rabbitmq:3.7.13-management-alpine
     container_name: athena_rabbitmq
     hostname: rabbitmq
+    restart: always
     env_file:
       - .env
     labels:
@@ -92,13 +96,17 @@ services:
   flower:
     image: mher/flower
     container_name: athena_flower
+    restart: always
     env_file:
       - .env
     labels:
       - "traefik.enable=true"
       - "traefik.backend=athena-flower"
       - "traefik.frontend.rule=Host:flower.athena.${HOSTNAME}"
+      - "traefik.frontend.auth.basic=${ADMIN_USERNAME}:${ADMIN_PASSWORD}"
       - "traefik.port=8888"
+    networks:
+      - web
 
 networks:
   web:
