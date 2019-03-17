@@ -18,6 +18,8 @@ services:
     restart: always
     depends_on:
       - db
+      - redis
+      - rabbit
     env_file:
       - .env
     volumes:
@@ -38,9 +40,6 @@ services:
       - rabbit
     env_file:
       - .env
-    labels:
-      - "traefik.enable=true"
-      - "traefik.backend=athena-celery"
     command: celery worker -A athena --concurrency=4
     networks:
       - web
@@ -53,9 +52,6 @@ services:
       - rabbit
     env_file:
       - .env
-    labels:
-      - "traefik.enable=true"
-      - "traefik.backend=athena-celery-beat"
     command: celery beat -A athena
     networks:
       - web
@@ -65,17 +61,11 @@ services:
     restart: always
     env_file:
       - .env
-    labels:
-      - "traefik.enable=true"
-      - "traefik.backend=athena-postgre"
     networks:
       - web
   redis:
     image: redis:5.0.3-alpine
     container_name: athena_redis
-    labels:
-      - "traefik.enable=true"
-      - "traefik.backend=athena-redis"
     networks:
       - web
   rabbit:
