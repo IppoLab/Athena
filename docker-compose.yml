@@ -41,6 +41,8 @@ services:
     env_file:
       - .env
     command: celery worker -A athena --concurrency=4
+    labels:
+      - "traefik.enable=true"
     networks:
       - web
   celery-beat:
@@ -53,6 +55,8 @@ services:
     env_file:
       - .env
     command: celery beat -A athena
+    labels:
+      - "traefik.enable=true"
     networks:
       - web
   db:
@@ -61,11 +65,15 @@ services:
     restart: always
     env_file:
       - .env
+    labels:
+      - "traefik.enable=true"
     networks:
       - web
   redis:
     image: redis:5.0.3-alpine
     container_name: athena_redis
+    labels:
+      - "traefik.enable=true"
     networks:
       - web
   rabbit:
