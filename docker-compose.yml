@@ -103,7 +103,7 @@ services:
       - "traefik.enable=true"
       - "traefik.backend=athena-flower"
       - "traefik.frontend.rule=Host:flower.athena.${HOSTNAME}"
-      - "traefik.frontend.auth.basic=${ADMIN_USERNAME}:${ADMIN_PASSWORD}"
+      - "traefik.frontend.auth.basic.usersFile=/.htpasswd"
       - "traefik.port=8888"
     networks:
       - web
