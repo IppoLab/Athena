@@ -38,8 +38,8 @@ services:
     env_file:
       - .env
     volumes:
-      - ./media:/media
-      - ./static:/static
+      - ./media:/app/media
+      - ./static:/app/static
     labels:
       - "traefik.enable=true"
       - "traefik.backend=athena-backend"
