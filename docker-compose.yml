@@ -127,7 +127,6 @@ services:
       - "traefik.enable=true"
       - "traefik.backend=athena-adminer"
       - "traefik.frontend.rule=Host:adminer.athena.${HOSTNAME}"
-      - "traefik.frontend.auth.basic.usersFile=/.htpasswd"
       - "traefik.port=8080"
     networks:
       - web
@@ -144,7 +143,6 @@ services:
       - "traefik.enable=true"
       - "traefik.backend=athena-rabbit"
       - "traefik.frontend.rule=Host:rabbit.athena.${HOSTNAME}"
-      - "traefik.frontend.auth.basic.usersFile=/.htpasswd"
       - "traefik.port=15672"
     networks:
       - web
