@@ -120,14 +120,14 @@ services:
     networks:
       - web
   adminer:
-    image: adminer
+    image: adminer:4.7.1-standalone
     container_name: athena_adminer
     restart: always
     labels:
       - "traefik.enable=true"
       - "traefik.backend=athena-adminer"
-      - "traefik.frontend.auth.basic.usersFile=/.htpasswd"
       - "traefik.frontend.rule=Host:adminer.athena.${HOSTNAME}"
+      - "traefik.frontend.auth.basic.usersFile=/.htpasswd"
       - "traefik.port=8080"
     networks:
       - web
@@ -143,8 +143,8 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.backend=athena-rabbit"
-      - "traefik.frontend.auth.basic.usersFile=/.htpasswd"
       - "traefik.frontend.rule=Host:rabbit.athena.${HOSTNAME}"
+      - "traefik.frontend.auth.basic.usersFile=/.htpasswd"
       - "traefik.port=15672"
     networks:
       - web
