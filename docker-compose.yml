@@ -33,8 +33,6 @@ services:
     restart: always
     depends_on:
       - db
-      - redis
-      - rabbit
     env_file:
       - .env
     volumes:
@@ -45,54 +43,6 @@ services:
       - "traefik.backend=athena-backend"
       - "traefik.frontend.rule=Host:api.athena.${HOSTNAME}"
       - "traefik.port=8000"
-    networks:
-      - web
-  flower:
-    image: mher/flower
-    container_name: athena_flower
-    restart: always
-    env_file:
-      - .env
-    labels:
-      - "traefik.enable=true"
-      - "traefik.backend=athena-flower"
-      - "traefik.frontend.rule=Host:flower.athena.${HOSTNAME}"
-      - "traefik.frontend.auth.basic.usersFile=/.htpasswd"
-      - "traefik.port=8888"
-    networks:
-      - web
-  celery:
-    image: ippolab/athena-backend
-    container_name: athena_celery
-    restart: always
-    depends_on:
-      - db
-      - redis
-      - rabbit
-    env_file:
-      - .env
-    command: celery worker -A athena --concurrency=4
-    labels:
-      - "traefik.enable=true"
-      - "traefik.backend=athena-celery"
-      - "traefik.frontend.rule=Host:"
-    networks:
-      - web
-  celery-beat:
-    image: ippolab/athena-backend
-    container_name: athena_celery_beat
-    restart: always
-    depends_on:
-      - db
-      - redis
-      - rabbit
-    env_file:
-      - .env
-    command: celery beat -A athena
-    labels:
-      - "traefik.enable=true"
-      - "traefik.backend=athena-celery-beat"
-      - "traefik.frontend.rule=Host:"
     networks:
       - web
   db:
@@ -109,16 +59,6 @@ services:
       - ./postgres-data:/var/lib/postgresql/data
     networks:
       - web
-  redis:
-    image: redis:5.0.3-alpine
-    container_name: athena_redis
-    restart: always
-    labels:
-      - "traefik.enable=true"
-      - "traefik.backend=athena-redis"
-      - "traefik.frontend.rule=Host:"
-    networks:
-      - web
   adminer:
     image: adminer:4.7.1-standalone
     container_name: athena_adminer
@@ -128,22 +68,6 @@ services:
       - "traefik.backend=athena-adminer"
       - "traefik.frontend.rule=Host:adminer.athena.${HOSTNAME}"
       - "traefik.port=8080"
-    networks:
-      - web
-  rabbit:
-    image: rabbitmq:3.7.13-management-alpine
-    container_name: athena_rabbitmq
-    hostname: rabbitmq
-    restart: always
-    env_file:
-      - .env
-    volumes:
-      - ./rabbit-data:/var/lib/rabbitmq/
-    labels:
-      - "traefik.enable=true"
-      - "traefik.backend=athena-rabbit"
-      - "traefik.frontend.rule=Host:rabbit.athena.${HOSTNAME}"
-      - "traefik.port=15672"
     networks:
       - web
 
