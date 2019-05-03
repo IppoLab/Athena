@@ -43,10 +43,9 @@ Frontend
 Deploy
 ------
 
-To deploy Athena you need installed traefik_ configured for listening docker events. More info here_. Then rename ``.env.example`` and change values in file. And last step - set up host names for frontend_ and api_ and start services:
+To deploy Athena you may need installed traefik_ configured for listening docker events or some other proxy. More info about traeifik here_. Then rename ``.env.example`` and change values in file. And last step - set up host name for frontend_ and api_ and start services:
 
 .. code-block:: bash
 
-    export ATHENA_FRONT_HOST=athena.example.edu
-    export ATHENA_API_HOST=api.athena.example.edu
+    export HOSTNAME=example.com
     docker-compose up -d
