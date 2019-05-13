@@ -1,19 +1,19 @@
-.. |backend_master_build| image:: https://circleci.com/gh/IppoLab/Athena-backend/tree/master.svg?style=svg
-    :target: https://circleci.com/gh/IppoLab/Athena-backend/tree/master
+.. |backend_master_build| image:: https://circleci.com/gh/ippolab/athena-backend/tree/master.svg?style=svg
+    :target: https://circleci.com/gh/ippolab/athena-backend/tree/master
 
-.. |backend_dev_build| image:: https://circleci.com/gh/IppoLab/Athena-backend/tree/dev.svg?style=svg
-    :target: https://circleci.com/gh/IppoLab/Athena-backend/tree/dev
+.. |backend_dev_build| image:: https://circleci.com/gh/ippolab/athena-backend/tree/dev.svg?style=svg
+    :target: https://circleci.com/gh/ippolab/athena-backend/tree/dev
 
-.. |frontend_master_build| image:: https://circleci.com/gh/IppoLab/Athena-frontend/tree/master.svg?style=svg
-    :target: https://circleci.com/gh/IppoLab/Athena-frontend/tree/master
+.. |frontend_master_build| image:: https://circleci.com/gh/ippolab/athena-frontend/tree/master.svg?style=svg
+    :target: https://circleci.com/gh/ippolab/athena-frontend/tree/master
 
-.. |frontend_dev_build| image:: https://circleci.com/gh/IppoLab/Athena-frontend/tree/dev.svg?style=svg
-    :target: https://circleci.com/gh/IppoLab/Athena-frontend/tree/dev
+.. |frontend_dev_build| image:: https://circleci.com/gh/ippolab/athena-frontend/tree/dev.svg?style=svg
+    :target: https://circleci.com/gh/ippolab/athena-frontend/tree/dev
 
 .. _traefik: https://traefik.io/
 .. _here: https://docs.traefik.io/user-guide/docker-and-lets-encrypt/
-.. _frontend: https://github.com/IppoLab/Athena-frontend/
-.. _api: https://github.com/IppoLab/Athena-backend/
+.. _frontend: https://github.com/ippolab/athena-frontend/
+.. _api: https://github.com/ippolab/athena-backend/
 
 Build status
 ------------
