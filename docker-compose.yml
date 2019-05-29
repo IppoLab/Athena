@@ -59,15 +59,21 @@ services:
       - ./postgres-data:/var/lib/postgresql/data
     networks:
       - web
-  adminer:
-    image: adminer:4.7.1-standalone
-    container_name: athena_adminer
+  pgadmin:
+    image: dpage/pgadmin4:4.6
+    container_name: athena_pgadmin
     restart: always
+    env_file:
+      - .env
     labels:
       - "traefik.enable=true"
-      - "traefik.backend=athena-adminer"
-      - "traefik.frontend.rule=Host:adminer.athena.${HOSTNAME}"
-      - "traefik.port=8080"
+      - "traefik.backend=athena-pgadmin"
+      - "traefik.frontend.rule=Host:pgadmin.athena.${HOSTNAME}"
+      - "traefik.port=80"
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
     networks:
       - web
 
