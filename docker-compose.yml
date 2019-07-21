@@ -4,7 +4,7 @@ services:
   front:
     image: ippolab/athena-frontend
     container_name: athena_front
-    restart: always
+    restart: unless-stopped
     labels:
       - "traefik.enable=true"
       - "traefik.backend=athena-frontend"
@@ -15,7 +15,7 @@ services:
   nginx:
     image: nginx:1.15.9-alpine
     container_name: athena_nginx
-    restart: always
+    restart: unless-stopped
     volumes:
       - ./default.conf:/etc/nginx/conf.d/default.conf
       - ./static:/static
@@ -30,7 +30,7 @@ services:
   back:
     image: ippolab/athena-backend
     container_name: athena_back
-    restart: always
+    restart: unless-stopped
     depends_on:
       - db
     env_file:
@@ -48,7 +48,7 @@ services:
   db:
     image: postgres:11.2-alpine
     container_name: athena_postgre
-    restart: always
+    restart: unless-stopped
     env_file:
       - .env
     labels:
@@ -62,7 +62,7 @@ services:
   pgadmin:
     image: dpage/pgadmin4:4.6
     container_name: athena_pgadmin
-    restart: always
+    restart: unless-stopped
     env_file:
       - .env
     labels:
